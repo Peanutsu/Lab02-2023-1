@@ -13,87 +13,215 @@ public class ListaArray implements EstruturaElementar{
 
     @Override
     public boolean buscaElemento(int valor) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'buscaElemento'");
+        if (this.array != null) {
+            for (int i = 0; i <= this.indice_fim; i++) {
+                if (this.array[i] == valor) {
+                    return true; 
+                }
+            }
+        }
+        return false; 
     }
-
     @Override
     public int buscaIndice(int valor) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'buscaIndice'");
+       return array[valor];
     }
 
     @Override
     public int minimo() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'minimo'");
+        int minimo = Integer.MAX_VALUE;
+        for( int i = 0; i <array.length; i++){
+            if(array[i] < minimo){
+                minimo = array[i];
+            }
+        }
+        return minimo;
     }
+       
 
     @Override
     public int maximo() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'maximo'");
+       if(array.length == 0){
+         return Integer.MIN_VALUE;
+       }
+         int maximo = array[0];
+       for (int i = 0; i < array.length; i++){
+         if(array[i] > maximo){
+            maximo = array[i];
+         }
+       }
+       return maximo;
     }
 
     @Override
     public int predecessor(int valor) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'predecessor'");
+       if(array.length == 0){
+        return Integer.MIN_VALUE;
+       }
+
+       int predecessor = Integer.MIN_VALUE;
+       for(int i = 0; i < array.length; i++){
+         if(array[i] == valor){
+            return predecessor;
+         }
+         predecessor = array[i];
+       }
+       return predecessor;
     }
 
     @Override
     public int sucessor(int valor) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'sucessor'");
+        for(int i = 0; i < array.length -1 ; i ++){
+            if (array[i] == valor){
+                return array[i + 1];
+            }
+        }
+        return valor;
     }
 
     @Override
     public void insereElemento(int valor) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'insereElemento'");
+       if (this.array != null) {
+            int[] objeto = new int[this.array.length + 1];
+            for (int i = 0; i < this.array.length; i++) {
+                objeto[i] = this.array[i];
+            }
+            objeto[this.array.length] = valor;
+            this.array = objeto;
+            this.indice_fim = this.array.length - 1;
+        } else {
+            this.array = new int[1];
+            this.array[0] = valor;
+            this.indice_fim = 0;
+        }
     }
 
     @Override
     public void insereElementoPosicao(int valor, int buscaIndice) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'insereElementoPosicao'");
+        if(this.array != null && buscaIndice >= 0 && buscaIndice <= this.indice_fim+1){
+            int tamanho = this.array.length + 1;
+            int[] array2 = new int[tamanho];
+
+
+            for(int i = 0; i < buscaIndice; i++){
+                array2[i] = this.array[i];
+            }
+            array2[buscaIndice] = valor;
+        
+            for(int i = buscaIndice + 1; i < tamanho; i++){
+                array2[i] = this.array[i -1];
+                
+            }
+            this.array = array2;
+            this.indice_fim = tamanho -1;
+            
+        }
+        
     }
+        
+
+    
 
     @Override
     public void insereInicio(int valor) {
-        for (int i = indice_fim - 1; i > 0; i--)
-            array[i] = array[i+1];
-        array[0] = valor;
-    }
+        if(this.array != null){
+            int[] objeto = new int[this.array.length+1];
+            for (int i = 0; i < this.array.length ; i++){
+                objeto[i +1] = this.array[i];
+            }
+            objeto[0] = valor;
+            this.array = objeto;
+            this.indice_fim = this.array.length-1;
+        
+        }
+        else{
+            this.array = new int[1];
+            this.array[0] = valor;
+            this.indice_fim = 0;
+
+        }
+        }
+    
 
     @Override
     public void insereFim(int valor) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'insereFim'");
+        if (this.array != null) {
+            int[] objeto = new int[this.array.length + 1];
+            for (int i = 0; i < this.array.length; i++) {
+                objeto[i] = this.array[i];
+            }
+            objeto[this.array.length] = valor;
+            this.array = objeto;
+            this.indice_fim = this.array.length - 1;
+        } else {
+            this.array = new int[1];
+            this.array[0] = valor;
+            this.indice_fim = 0;
+        }
     }
 
     @Override
     public void remove(int valor) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'remove'");
+        if (this.array != null && valor >=0 && valor <= this.indice_fim){
+        int tamanho3 = this.indice_fim;
+        int[] array3 = new int[tamanho3];
+
+        for (int i = 0, j = 0; i < this.indice_fim; i++){
+            if(i != valor){
+                array3[j++] = this.array[i];
+            }
+            
+        }
+        this.array = array3;
+        this.indice_fim = tamanho3 - 1;
+
+      }  
+
+        
     }
 
     @Override
-    public void removeIndice(int indice) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'removeIndice'");
+   public void removeIndice(int indice) {
+    if (this.array != null && indice >= 0 && indice <= this.indice_fim) {
+        int tamanho3 = this.indice_fim;
+        int[] array3 = new int[tamanho3];
+
+        for (int i = 0, j = 0; i <= this.indice_fim; i++) {
+            if (i != indice) {
+                array3[j++] = this.array[i];
+            }
+        }
+        this.array = array3;
+        this.indice_fim = tamanho3 - 1;
     }
+}
+       
 
     @Override
     public void removeInicio() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'removeInicio'");
+        if (this.array != null && this.indice_fim >= 0) {
+
+            int[] arrayNovo = new int[this.array.length - 1];
+            for (int i = 0; i < this.indice_fim; i++) {
+                arrayNovo[i] = this.array[i + 1];
+            }
+            this.array = arrayNovo;
+            this.indice_fim = this.array.length - 1;
+        }
     }
 
     @Override
     public void removeFim() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'removeFim'");
-    }
+        if (this.array != null && this.indice_fim >= 0) { 
+            int tamanho2 = this.array.length - 1;
+            int[] arrayNovo2 = new int[tamanho2];
+
+            for (int i = 0; i < tamanho2; i++){
+                arrayNovo2[i] = this.array[i];
+            }
+            this.array = arrayNovo2;
+            this.indice_fim = tamanho2 -1;
+        }
+    }}
+          
     
-}
